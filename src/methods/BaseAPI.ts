@@ -10,9 +10,10 @@ export default class BaseAPI {
 
   protected _get(api: string, args: Record<string, any> = {}): any {
     // https://github.com/requests/requests/blob/master/requests/models.py
-    const encodedArgs: string = queryEncode({ token: this._token, ...args })
+    const encodedArgs: string = queryEncode({ ...args })
     const url = `${BaseAPI.API_ENDPOINT}${api}?${encodedArgs}`
     const params: Record<string, any> = {
+      headers: { Authorization: `Bearer ${this._token}` },
       method: 'get',
       contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
     }
